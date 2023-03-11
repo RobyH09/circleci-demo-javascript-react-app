@@ -1,13 +1,18 @@
 version: 2.1
 
 workflows:
-  test-build-new:
+  test-build:
     jobs:
-      - preflight
+      - test
 jobs:
-  preflight:
+  test:
     docker:
       - image: cimg/node:19.7.0
     steps:
       - checkout
-      - run: node --version
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Run Tests
+          command: npm run test
